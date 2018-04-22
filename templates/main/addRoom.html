@@ -1,0 +1,222 @@
+{% extends "layout.html" %}
+{% block body %}
+    <div class="container-fluid">
+        <div id="myModal" class="modal" >            
+            <!-- Modal content -->
+            <div class="modal-content" style="height:400px;width:80%;overflow-y:scroll;overflow-x:hidden">
+            <span class="close">&times;</span>
+                <div class="row">
+                        <div class="card-header font-weight-bold h7">
+                            All Bookings
+                        </div>
+                        <div class="card-block" style="height:65vh; padding-right: 5px;">
+                            <div class="row"><br/></div>
+                            <div class="form-group">
+                            <div class="row col-md-12" >
+                                <table id="example" class="display table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                        
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        <div id="addRooms"  class="card card-accent-primary" >
+            <div class="card-header font-weight-bold h7">
+                Add New Rooms
+            </div>
+            <div class="card-block" style="height:15vh; padding-right: 5px;">
+                <div class="row">
+                    <br/>
+                </div>
+                
+                <div class="form-group">
+                    <form action={{url_for('rooms')}} method="post">
+                        <div class="row">
+                            <div class="form-group col-md-2">
+                                <label for="kpiVisibility">Room No</label>
+                                <input type="text" class="form-control" placeholder="RoomNo" name="roomId" required>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="kpiVisibility">Floor Level</label>
+                                <input type="text" class="form-control" placeholder="Floor Level" name="floorNumber" required>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="kpiVisibility">Wing Name</label>
+                                <input type="text" class="form-control"  name="wingName" placeholder="Wing Name(optional)">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="kpiVisibility">Room Name</label>
+                                <input type="text" class="form-control"  name="roomName" placeholder="Room Name(optional)">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="kpiVisibility">Price (per Day)</label>
+                                <input type="number" class="form-control" name="price"  placeholder="Booking Price" required>
+                            </div>
+                            <div class="form-group col-md-2" style="padding-top:10px">
+                                <button class="btn btn-success"  type="submit">Add New Room</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="listRooms"  class="card card-accent-primary" >
+            <div class="card-header font-weight-bold h7">
+                List  Rooms
+            </div>
+            <div class="card-block" style="height:64vh; padding-right: 5px;overflow-y:scroll;overflow-x:hidden">
+                <div class="row">
+                    <br/>
+                </div>
+                <div class="row col-md-12">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <td>Room Number</td>
+                            <td>Room Price ($) (per Day)</td>
+                            <td>Room Floor </td>
+                            <td>Wing Name</td>
+                            <td>Room Name</td>
+                            <td>Show Booking</td>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for room in AllRooms %}
+                        <tr>
+                            <td>{{room.roomId}}</td>
+                            <td>{{room.roomPrice}}</td>
+                            <td>{{room.floorNumber}}</td>
+                            <td>{{room.wingName}}</td>
+                            <td>{{room.roomName}}</td>
+                            <td><button class="btn btn-success" onclick="showBooking('{{room.roomId}}')">Show Bookings</button></td>
+                        </tr>
+                    {% endfor %}
+                    <tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    
+<script type="text/javascript">
+    var rowNo;
+    var modal = document.getElementById('myModal');
+    var span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    function showBooking(roomId){
+        document.location = "showBooking?room="+roomId;
+        /*modal.style.display = "block";
+        rowNo = roomId
+        loadBookings(roomId);*/
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    function loadBookings(roomId){
+        $.post("api/showRoomBookings",{room:roomId},function(data){
+            var table = $('#example').DataTable( {
+                data: data['roomBookings'],
+                columns: [
+                    { "data" : "name","title":"Booked By"},	
+                    { "data" : "bookingFromDate" ,"title":"Booking From Date "},
+                    { "data" : "bookingToDate" ,"title":"Booking To Date"},
+                    { "data" : "bookingPrice" ,"title":"Amount Paid"},
+                    { "data" : "updatedOn" ,"title":"Booking Date"},
+                    { "data" : "bookingId" ,"title":"Booking Id"},
+                    {"title": "Delete Booking", "data": null }
+
+                
+                ],
+                "columnDefs": [ {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button class='btn btn-danger'>Delete Booking</button>"
+                } ],
+                "paging": false,
+				"destroy": true,
+				"bInfo" : false,
+				"searching": false,
+                rowReorder: {
+                    update: true
+                },
+                "aaSorting": []
+
+            });
+
+            table.clear();
+            $('#example tbody').on( 'click', 'button', function () {
+                var data = table.row( $(this).parents('tr') ).data();
+                deleteBooking(data.bookingId);
+                console.log("deleteing");
+            });
+    
+        });
+    }
+    function deleteBooking(currentBooking)
+    {
+        console.log(currentBooking);
+        $.post("api/deleteBooking",
+            {bookingId: currentBooking},
+            function(data){
+                if(data.status == 1)
+                    alert("Booking deleted successfully");
+                else
+                    alert("Your deletion couldn't complete. Please try again");
+                loadBookings(rowNo);
+            });
+    }
+    
+</script>
+<style>
+    /* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+</style>
+
+{% endblock %}
