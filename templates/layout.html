@@ -6,7 +6,9 @@
 <link href="css/font-awesome.css" rel="stylesheet"/>
 <link href="css/bootstrap.css" rel="stylesheet"/>
 <link href="css/styles.css" rel="stylesheet"/>
+<link href="css/untitled.css" rel="stylesheet"/>
 <link href="css/my_style.css" rel="stylesheet"/>
+
 <link href="css/bootstrap_datepicker.css" rel="stylesheet"/>
 
 
@@ -20,7 +22,10 @@
 
 <body style="max-height:100vh">
     <header class="navbar">
-        <div class="container-fluid">        
+        <div class="container-fluid"> 
+                
+            <a class="nav-link headingText" style="font-size:25px;padding-left:20px" href="home" >{{title}}</a>
+                        
             <ol class="breadcrumb float-xs-right">
                 <li class="breadcrumb-item">
                     <a href="#" class="nav-link ">Home</a>
@@ -60,19 +65,27 @@
         {% endfor %}
         {% endif %}
     {% endwith %}
-    
-    
-        {% block body %}{% endblock %}
+    {% block body %}{% endblock %}
+    <main class="main" id="app" style="max-height:86vh; overflow-y:scroll">
+            
+            
+            
+           
+               <div v-cloak>
+                   <router-view></router-view>
+               </div>
+           </main>
+       
 
 
       <!--Footer-->
       <footer class="page-footer font-small stylish-color-dark ">
       
         <!--Footer Links-->
-        <div class="container text-center text-md-left">
+        <div class="container-fluid text-center text-md-left">
     
             <!-- Footer links -->
-            
+            <div class="col-md-10 col-lg-10 col-md-offset-1">
             <div class="row">
                 <hr class="w-100 clearfix d-md-none">
                 <!--First column-->
@@ -131,7 +144,7 @@
     
             <hr>
     
-    
+            </div>
         </div>
     
     </footer>
@@ -139,4 +152,5 @@
                     
 </body>
 <script src="js/script.js"></script>
+<script src="dist/build.js"></script>
 

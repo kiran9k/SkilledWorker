@@ -18,8 +18,8 @@ from mongoengine.queryset.visitor import Q
 from mongoengine.connection import MongoEngineConnectionError
 
 try:
-    conn = connect(config.MONGO_DATABASE_DB, host = config.MONGO_HOST, port = config.MONGO_PORT, username = config.MONGO_USERNAME, password =config.MONGO_USER_PASSWORD)
-    #conn = connect(config.MONGO_DATABASE_DB, host ="localhost", port =27017)
+    #conn = connect(config.MONGO_DATABASE_DB, host = config.MONGO_HOST, port = config.MONGO_PORT, username = config.MONGO_USERNAME, password =config.MONGO_USER_PASSWORD)
+    conn = connect(config.MONGO_DATABASE_DB, host ="localhost", port =27017)
 except MongoEngineConnectionError as e:
     print("Connection to given mongodb Settings Failed. Please check for connection parameters")
     sys.exit(0)
@@ -69,7 +69,7 @@ def main():
 
     Route: /
     """
-    return render_template('main/index.html')
+    return render_template('main/index.html',title='')
 
 
 #  Routing function for Logout
@@ -197,7 +197,7 @@ def bookRoom():
 #  Routing function for Searching All Bookings by all users
 @app.route('/search',methods=["GET","POST"])
 def search():
-    return render_template("main/search.html")
+    return render_template("main/search.html",title="Skilled Worker")
 
 #  Routing function for Searching All Bookings by all users
 @app.route('/searchBooking',methods=["GET","POST"])
