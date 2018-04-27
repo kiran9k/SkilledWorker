@@ -1,9 +1,11 @@
+""" @package : Config file for the CIQ App """
 import os
 
+# Statement for enabling the development environment
 DEBUG = True
 
 # Port Number
-PORT_NO = 8080
+PORT_NO = 8081
 
 # The Host IP
 HOST = '0.0.0.0'
@@ -11,15 +13,18 @@ HOST = '0.0.0.0'
 # Define the application directory
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+# Define the DB
+
 # Define the DB (mongoLab)
-MONGO_DATABASE_URI = 'mongodb://root:root@ds137054.mlab.com:37054/'
+
+MONGO_DATABASE_URI = 'mongodb://root:root@@ds147534.mlab.com:47534/'
 MONGO_USERNAME = "root"
 MONGO_USER_PASSWORD = "root"
-MONGO_DB_NAME = "room-scheduler"
-MONGO_HOST = "ds137054.mlab.com"
-MONGO_PORT = 37054
-
-MONGO_DATABASE_DB = 'room-scheduler'
+MONGO_DB_NAME = "skilledworker"
+MONGO_HOST = "ds147534..mlab.com"
+MONGO_PORT = 47534
+MONGO_DATABASE_DB = 'skilledworker'
 
 # Secret key for signing cookies
-SECRET_KEY = "MyRooMS#cH3dUleRsecretKey123"
+SECRET_KEY = "MyCIQdAsHbOaRdsecretKey123"
+
