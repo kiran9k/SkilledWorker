@@ -118,7 +118,7 @@
                                     <div class="_1OCn9C">
                                         <div>
                                             <div class="_3BTv9X" style="height: 100px; width:100px;">
-                                                <img class="_1Nyybr  _30XEf0" alt="searchResult.name" v-bind:src="'images/'+searchResult.image">
+                                                <img class="_1Nyybr _30XEf0"  v-bind:src="'images/'+searchResult.image">
                                             </div>
                                         </div>
                                     </div>
