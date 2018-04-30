@@ -5,7 +5,7 @@ import os
 DEBUG = True
 
 # Port Number
-PORT_NO = 8081
+PORT_NO = 8080
 
 # The Host IP
 HOST = '0.0.0.0'

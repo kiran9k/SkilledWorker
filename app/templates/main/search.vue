@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-1 mb-3 ">
+        <div class="row mt-1 mb-3 " v-if="searching">
             <div class="col-md-3 col-lg-3">
                 <fieldset style="border: 1px black solid">
                     <legend class="text-center" align="center" style="border:none;width: 150px;">Search Filter</legend>
@@ -83,7 +83,7 @@
                     <fieldset style="border: 1px black solid">
                         <legend class="text-center" align="center" style="border:none;width: 150px">Search Result</legend>
                         <div class="container-fluid">
-                            <div class="row mb-0">
+                            <div class="row mb-0"  v-if="searchResults.length > 0">
                                 <div class="col-md-3 col-lg-3">
                                     {{paginate.showing}} out of {{paginate.totalCount}}
                                 </div>
@@ -103,6 +103,11 @@
                                         <option value="50">50</option>
                                         <option value="100">100</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="_1UoZlX row" v-else >
+                                <div class="_3wU53n">
+                                    No Result Found. Please try searching again.
                                 </div>
                             </div>
                             <div class="row">
@@ -154,7 +159,7 @@
                                     </div>
                                 </div>
                             </div>
-             
+
                             <div class="row vertical-center-row">
                                 <ul class="pagination col-md-5 col-lg-5 col-md-offset-4 pagination-lg">
                                     <li v-for="page in paginate.pages"> 
@@ -168,6 +173,7 @@
             </div>
 
         </div>
+        
     </div>
 </template>
 <script>
@@ -198,7 +204,8 @@
                     pages:[],
                     totalCount:'',
                     showing:'',
-                }
+                },
+                searching : false
             }
         },
         created:function(){
@@ -215,6 +222,7 @@
                 var self= this;
                 axios.post("api/searchJobs",{skill:this.searchData.skill,location:this.searchData.location})
                     .then(function(data){
+                        self.searching =  true;
                         self.allSearchResults = data['data'];
                         self.paginate.totalCount = self.allSearchResults.length;
                         self.paginate.pages=[];
