@@ -36,6 +36,7 @@ login_manager.login_view = "auth.login"
 
 try:
     conn = connect(config.MONGO_DATABASE_DB, host = config.MONGO_HOST, port = config.MONGO_PORT, username = config.MONGO_USERNAME, password =config.MONGO_USER_PASSWORD)
+    print("Connecting to DB")
     #conn = connect(config.MONGO_DATABASE_DB, host ="localhost", port =27017)
 except MongoEngineConnectionError as e:
     print(e)
