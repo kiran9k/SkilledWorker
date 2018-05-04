@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-6  col-xs-5 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1">
-                                <div class="row "><h5 class="h5label">{{searchResult.name}}</h5></div>
+                                <div class="row "><h5 class="h5label" ><a href="#" @click="showProfiles(searchResult.userEmail)" >{{searchResult.name}}</a></h5></div>
                                 <div class="row mt-1"><h6 class="h6label text-justify text-secondary">{{searchResult.skillSet}}</h6></div>
                                 <div class="row "><h6 class="h6label">{{searchResult.location}}</h6></div>
                             </div>
@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-6  col-xs-6 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1">
-                                <div class="row "><h5 class="h5label">{{searchResult.name}}</h5></div>
+                                <div class="row "><h5 class="h5label" ><a href="#" @click="showProfiles(searchResult.userEmail)" >{{searchResult.name}}</a></h5></div>
                                 <div class="row mt-1"><h6 class="h6label text-justify text-secondary">{{searchResult.skillSet}}</h6></div>
                                 <div class="row "><h6 class="h6label">{{searchResult.location}}</h6></div>
                             </div>
@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-lg-6 col-sm-6  col-md-offset-1 col-sm-offset-1 col-lg-offset-1">
-                                <div class="row "><h5 class="h5label">{{searchResult.name}}</h5></div>
+                                <div class="row "><h5 class="h5label" ><a href="#" @click="showProfiles(searchResult.userEmail)" >{{searchResult.name}}</a></h5></div>
                                 <div class="row mt-1"><h6 class="h6label text-justify text-secondary">{{searchResult.skillSet}}</h6></div>
                                 <div class="row "><h6 class="h6label">{{searchResult.location}}</h6></div>
                             </div>
@@ -141,7 +141,10 @@ export default {
             .catch(function(error){
                 console.log(error);
             });
-    }
+    },
+    showProfiles:function(emailId){
+        router.replace({ name: "ShowProfile" ,params: {email:emailId}});
+    },
         
   }
 }
