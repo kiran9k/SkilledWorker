@@ -1,18 +1,18 @@
 <template>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 col-lg-12">
+        <div class="row mb-2 mt-0">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <div class="well well-lg row">
                     <div>
-                        <div class="col-md-5 col-lg-5 search">
+                        <div class="col-md-5 col-lg-5 col-sm-5  col-xs-5 search">
                             <span class="fa fa-search"></span>
                             <input type="text" class="form-control" style="width: 100%" v-model="searchData.skill" placeholder="Enter Skill">
                         </div>
-                        <div class="col-md-5 col-lg-5 search">
+                        <div class="col-md-5 col-lg-5 col-sm-5 col-xs-5 search">
                             <span class="fa fa-search"></span>
                             <input type="text" class="form-control" style="width:100%;" v-model="searchData.location" placeholder="Enter Location">
                         </div>
-                        <div class="col-md-2 col-lg-2">
+                        <div class="col-md-2 col-lg-2 col-sm-2 col-xs-5">
                             <button type="submit" style="width: 100%" class="btn btn-primary" @click="search()">Search</button>
                         </div>
 
@@ -20,11 +20,13 @@
                 </div>
             </div>
         </div>
+        <div class="row mb-2 mt-2">
+        </div>
         <div class="row mt-1 mb-3 " v-if="searching">
-            <div class="col-md-3 col-lg-3">
+            <div class="col-md-3 col-lg-3 col-sm-3 col-xs-3">
                 <fieldset style="border: 1px black solid">
                     <legend class="text-center" align="center" style="border:none;width: 150px;">Search Filter</legend>
-                    <div class="col-md-12 col-md-offset-0 col-lg-12">
+                    <div class="col-md-12 col-md-offset-0 col-lg-12 col-sm-12">
                         <!--<select class="form-control input-select" id="sel1">
                             <option value="" disabled selected>Job Title</option>
                         </select>-->
@@ -79,7 +81,7 @@
                     </div>
                 </fieldset>
                 </div>
-                <div class="col-md-9 col-lg-9">
+                <div class="col-md-9 col-lg-9 col-sm-9 col-xs-9">
                     <fieldset style="border: 1px black solid">
                         <legend class="text-center" align="center" style="border:none;width: 150px">Search Result</legend>
                         <div class="container-fluid">
@@ -114,54 +116,63 @@
                                 <hr>
                             </div>
                             <div class="_1UoZlX row" v-for="searchResult in searchResults">
-                                <div class="_3SQWE6">
+                                <!--<div class="_3SQWE6 col-md-3 col-sm-3 col-lg-3">
                                     <div class="_1OCn9C">
-                                        <div>
-                                            <div class="_3BTv9X" style="height: 100px; width:100px;">
-                                                <img class="_1Nyybr _30XEf0"  v-bind:src="'images/'+searchResult.image">
-                                            </div>
+                                        <div class="_3BTv9X" style="height: 100px; width:100px;">
+                                            <img class="_1Nyybr _30XEf0"  v-bind:src="'images/'+searchResult.image">
                                         </div>
                                     </div>
+                                </div>-->
+                                <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2">
+                                    <div class="art index-art  searchResultImage">
+                                    <img  v-bind:src="'images/'+searchResult.image">
+                                    </div>
                                 </div>
-                                <div class="_1-2Iqu row">
-                                    <div class="col-md-7">
-                                        <div class="_3wU53n">{{searchResult.name}} &nbsp;&nbsp;
-                                        <!--    <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star checked"></span>
-                                            <span class="fa fa-star"></span>
-                                            <span class="fa fa-star"></span>-->
-                                        </div>
-                                        <div class="OiPjke">{{searchResult.location}}</div>
+                                
+                                <div class="col-md-7 col-xs-7 col-sm-7 col-lg-7">
+                                    <div class="_3wU53n">{{searchResult.name}} &nbsp;&nbsp;
+                                    <!--    <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>-->
+                                    </div>
+                                    <div class="OiPjke">{{searchResult.location}}</div>
 
-                                        <div class="_3ULzGw">
-                                            Skill Description:
-                                            <ul class="vFw0gD">
-                                                <li class="tVe95H">{{searchResult.skillSet}}</li>
-                                            </ul>
-                                        </div>
-                                        <div class="OiPjke">
-                                            <a href="#" @click="showProfiles(searchResult.userEmail)">View Complete Detail </a>
-                                        </div>
-                                        <!--<div class="OiPjke">Last Update:{{datetime}}</div>-->
+                                    <div class="_3ULzGw">
+                                        Skill Description:
+                                        <ul class="vFw0gD">
+                                            <li class="tVe95H">{{searchResult.skillSet}}</li>
+                                        </ul>
                                     </div>
-                                    <div class=" col-md-2 ">
-                                        <div class="_6BWGkk">
-                                            <button type="button" class="btn btn-primary">Hire</button>
-                                            <button type="button" class="btn btn-primary">Save</button>
+                                    <div class="OiPjke">
+                                        <a href="#" @click="showProfiles(searchResult.userEmail)">View Complete Detail </a>
+                                    </div>
+                                    <!--<div class="OiPjke">Last Update:{{datetime}}</div>-->
+                                </div>
+                                <div class=" col-md-2 col-xs-2 col-lg-2 col-sm-2">
+                                    <div class="_6BWGkk row">
+                                        <div class="col-md-5 col-lg-5 col-sm-5">
+                                            <button type="button" class=" btn btn-primary">Hire</button>
                                         </div>
-                                        <div class="_6BWGkk mt-1">
-                                            <div class="_1uv9Cb">
-                                                <div class="_1vC4OE _2rQ-NK">${{searchResult.price}}</div>
-                                                <div class=" _2GcJzG">Per Hour</div>
-                                            </div>
+                                        <div class="col-md-5 col-lg-5 col-sm-5">
+                                        <button type="button" class="btn btn-primary">Save</button>
+                                        </div>
+
+                                    </div>
+                                    <div class="_6BWGkk mt-1">
+                                        <div class="_1uv9Cb">
+                                            <div class="_1vC4OE _2rQ-NK">${{searchResult.price}}</div>
+                                            <div class=" _2GcJzG">Per Hour</div>
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
 
                             <div class="row vertical-center-row">
-                                <ul class="pagination col-md-5 col-lg-5 col-md-offset-4 pagination-lg">
+                                <ul class="pagination col-md-5 col-lg-5  col-sm-5 col-md-offset-4 col-sm-offset-4 col-lg-offset-4 pagination-lg">
                                     <li v-for="page in paginate.pages"> 
                                         <a href="#" @click="navigate(page)">{{page}}</a>
                                     </li>
@@ -205,7 +216,8 @@
                     totalCount:'',
                     showing:'',
                 },
-                searching : false
+                searching : false,
+                title:'Skilled'
             }
         },
         created:function(){
@@ -297,7 +309,6 @@
                 this.navigate(1);
             },
             showProfiles:function(emailId){
-                console.log("emaild :"+emailId);
                 router.replace({ name: "ShowProfile" ,params: {email:emailId}});
             },
         }
