@@ -10,11 +10,13 @@
                 <div class="jumbotron">
                 <div class="row mb-1">
                     
-                        <div class="col-md-5 col-lg-5 ">
-                        <input type="text" class="form-control" name="skill" v-model="searchData.skill"  placeholder="Enter Skill">
+                        <div class="col-md-5 col-lg-5 search ">
+                             <span class="fa fa-search"></span>
+                             <input type="text" class="form-control " name="skill" v-model="searchData.skill"  placeholder="Enter Skill">
                         </div>
-                        <div class="col-md-5 col-lg-5">
-                        <input type="text" class="form-control" name="location" v-model="searchData.location"  placeholder="Enter Location">
+                        <div class="col-md-5 col-lg-5 search">
+                            <span class="fa fa-search"></span>
+                            <input type="text" class="form-control" name="location" v-model="searchData.location"  placeholder="Enter Location">
                         </div>
                         
                         <button type="submit" class="btn btn-primary col-md-2" @click="search()">Search</button>
@@ -24,13 +26,16 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-3">
 
         </div>
         <div class="row mb-2 mt-3 ">
             <div class="col-md-10 col-lg-10 col-md-offset-1">
-
-                <table class="table table-bordered">
+                <div class="tab">
+                    <button class="tablinks" v-bind:class ="{ selectedTab: 'topWorkers'?'selectedTab':'' }" @click="showtab('topWorkers')">Top Workers</button>
+                    <button class="tablinks" @click="showtab('skills')">Skills</button>
+                </div>
+                <table class="table table-bordered showWorkers" v-if ="selectedTab == 'topWorkers'">
                     <tr>
                         <td v-for="searchResult in searchResults1" class="col-md-3">
                             <div class="col-md-6 col-lg-6">
@@ -81,7 +86,11 @@
                     </tr>
                 </table>
 
+                <table class="table table-bordered showWorkers" v-if ="selectedTab == 'skills'">
+                </table>
             </div>
+        </div>
+        <div class="row mt-3">
         </div>
         <div class="row mb-2 mt-3">
             <div class="col-md-10 col-lg-10 col-md-offset-1">
@@ -103,16 +112,19 @@ export default {
           searchResults1:[],
           searchResults2:[],
           searchResults3:[],
+          selectedTab:'topWorkers'
       }
   },
-  mounted:function(){
+  created:function(){
       this.userProfiles();
   },
   methods:{
     search:function(){
         router.replace({ name: "Search" ,params: { skill: this.searchData.skill,location: this.searchData.location }});
     },
-      
+    showtab:function(value){
+        this.selectedTab = value;
+    },
     userProfiles:function()
     {
         

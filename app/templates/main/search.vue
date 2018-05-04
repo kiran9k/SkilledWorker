@@ -4,15 +4,15 @@
             <div class="col-md-12 col-lg-12">
                 <div class="well well-lg row">
                     <div>
-                        <div class="col-md-5 search">
+                        <div class="col-md-5 col-lg-5 search">
                             <span class="fa fa-search"></span>
-                            <input type="text" class="form-control-sm" style="width: 100%" v-model="searchData.skill" placeholder="Enter Skill">
+                            <input type="text" class="form-control" style="width: 100%" v-model="searchData.skill" placeholder="Enter Skill">
                         </div>
-                        <div class="col-md-5 search">
+                        <div class="col-md-5 col-lg-5 search">
                             <span class="fa fa-search"></span>
-                            <input type="text" class="form-control-sm" style="width:100%;" v-model="searchData.location" placeholder="Enter Location">
+                            <input type="text" class="form-control" style="width:100%;" v-model="searchData.location" placeholder="Enter Location">
                         </div>
-                        <div class="col-md-1 col-lg-1">
+                        <div class="col-md-2 col-lg-2">
                             <button type="submit" style="width: 100%" class="btn btn-primary" @click="search()">Search</button>
                         </div>
 
